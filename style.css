@@ -1,0 +1,1366 @@
+:root {
+    /* Kleuren */
+    --nachtbruin: #1A120E;
+    --donkerbruin: #3A2418;
+    --middenbruin: #6B4A2E;
+    --zand: #D5C4AE;
+    --zandlicht: #F4EFE6;
+    --achtergrond: #F7F1ED;
+    --kaart: #FFFFFF;
+    --invoerveld: #FDFBF9;
+    --subtekst: #806B5B;
+    --placeholder: #B0A090;
+    --rand: #E5D8CC;
+    --accent: #D5A04A;
+    --fout: #A52A2A;
+    --fout-licht: #FBEEEE;
+    --fout-rand: #EBC9C9;
+
+    /* Vormen */
+    --radius-klein: 8px;
+    --radius-knop: 10px;
+    --radius-midden: 12px;
+    --radius-groot: 16px;
+
+    /* Schaduwen: drie vaste niveaus */
+    --schaduw-1: 0 1px 2px rgba(58, 36, 24, 0.05);
+    --schaduw-2: 0 4px 14px rgba(58, 36, 24, 0.08);
+    --schaduw-3: 0 12px 32px rgba(58, 36, 24, 0.12);
+    --focus-ring: 0 0 0 3px rgba(107, 74, 46, 0.20);
+
+    /* Lettertypen */
+    --font-tekst: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    --font-kop: Georgia, "Times New Roman", serif;
+
+    /* Maten */
+    --nav-hoogte: 76px;
+    --veld-hoogte: 48px;
+    --veilig-boven: env(safe-area-inset-top, 0px);
+    --veilig-onder: env(safe-area-inset-bottom, 0px);
+
+    /* Beweging */
+    --snel: 0.18s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    margin: 0;
+    background: var(--achtergrond);
+    color: var(--donkerbruin);
+    font-family: var(--font-tekst);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+    background: var(--zand);
+    color: var(--nachtbruin);
+}
+
+h1, h2, h3, h4 {
+    color: var(--donkerbruin);
+    line-height: 1.25;
+}
+
+a {
+    text-decoration: none;
+}
+
+button, input, select, textarea {
+    font: inherit;
+}
+
+img {
+    max-width: 100%;
+}
+
+main {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.w3-app-main {
+    width: 100%;
+    max-width: 1100px;
+    min-height: calc(100vh - var(--nav-hoogte));
+    min-height: calc(100dvh - var(--nav-hoogte));
+    margin: 0 auto;
+    padding: 28px 24px calc(var(--nav-hoogte) + var(--veilig-onder) + 30px);
+    background: var(--achtergrond);
+    color: var(--donkerbruin);
+}
+
+.w3-app-main > section {
+    margin-bottom: 28px;
+}
+
+.w3-app-main > section > h2 {
+    margin-top: 0;
+}
+
+/* Kopmaten: rustiger dan de W3-standaard */
+.w3-app-main h2,
+.w3-register-container h2 {
+    font-family: var(--font-kop);
+    font-size: 26px;
+    letter-spacing: -0.01em;
+}
+
+.w3-app-main h3 {
+    font-size: 20px;
+}
+
+.w3-empty-state {
+    padding: 28px 20px;
+    color: var(--subtekst);
+    text-align: center;
+    border: 1px dashed var(--zand) !important;
+    border-radius: var(--radius-midden);
+}
+
+
+.w3-app-header {
+    position: sticky;
+    top: 0;
+    z-index: 90;
+    width: 100%;
+    min-height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: calc(12px + var(--veilig-boven)) 25px 12px;
+    background: rgba(255, 255, 255, 0.92);
+    border-bottom: 1px solid var(--rand);
+    -webkit-backdrop-filter: saturate(1.4) blur(10px);
+    backdrop-filter: saturate(1.4) blur(10px);
+}
+
+.w3-app-header h1 {
+    margin: 0;
+    font-family: var(--font-kop);
+    font-size: 25px;
+    letter-spacing: -0.01em;
+}
+
+.w3-logo-link {
+    color: inherit;
+}
+
+.w3-logo-link:hover {
+    color: var(--middenbruin);
+}
+
+.w3-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.w3-settings-button,
+.w3-logout-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 44px;
+    padding: 0;
+    border-radius: var(--radius-midden);
+    cursor: pointer;
+    transition: background var(--snel), transform var(--snel), box-shadow var(--snel);
+}
+
+.w3-settings-button {
+    width: 44px;
+    color: var(--donkerbruin);
+    background: var(--achtergrond);
+    border: 1px solid var(--zand);
+}
+
+.w3-settings-button svg {
+    display: block;
+    width: 23px;
+    height: 23px;
+    flex-shrink: 0;
+}
+
+.w3-settings-button:hover {
+    background: var(--zand);
+    transform: rotate(20deg);
+}
+
+.w3-logout-button {
+    padding: 0 16px;
+    color: var(--zand);
+    background: var(--donkerbruin);
+    border: 0;
+    font-size: 18px;
+}
+
+.w3-logout-button:hover {
+    background: var(--middenbruin);
+}
+
+
+
+body > nav:not(.w3-bottom-nav) {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
+body > nav:not(.w3-bottom-nav) a {
+    color: var(--donkerbruin);
+    font-weight: bold;
+}
+
+.w3-bottom-nav {
+    position: fixed;
+    z-index: 100;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: calc(var(--nav-hoogte) + var(--veilig-onder));
+    padding-bottom: var(--veilig-onder);
+    display: flex;
+    align-items: stretch;
+    justify-content: space-around;
+    background: rgba(247, 241, 237, 0.94);
+    border-top: 1px solid var(--zand);
+    box-shadow: 0 -3px 15px rgba(26, 18, 14, 0.06);
+    -webkit-backdrop-filter: saturate(1.4) blur(10px);
+    backdrop-filter: saturate(1.4) blur(10px);
+}
+
+.w3-bottom-nav .w3-nav-item {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    color: var(--middenbruin);
+    background: transparent;
+    font-size: 13px;
+    transition: color var(--snel);
+}
+
+.w3-nav-item span {
+    font-size: 21px;
+    line-height: 1.2;
+}
+
+.w3-nav-item small {
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.w3-nav-item svg {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 5px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform var(--snel), stroke-width var(--snel);
+}
+
+.w3-bottom-nav .w3-nav-item:hover {
+    color: var(--donkerbruin);
+    background: transparent;
+}
+
+.w3-nav-item:hover svg {
+    transform: translateY(-3px);
+}
+
+
+
+
+
+/* Basis voor alle knoppen */
+.w3-action-button,
+.w3-quick-actions a,
+.w3-auth-button,
+.w3-register-button,
+.w3-family-button,
+.w3-item-button,
+.w3-item-cancel,
+.w3-inventory-button,
+.w3-location-button,
+.w3-location-cancel {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: var(--veld-hoogte);
+    padding: 11px 22px;
+    border: 1px solid var(--donkerbruin);
+    border-radius: var(--radius-knop);
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.2;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+    transition: background var(--snel), border-color var(--snel), color var(--snel),
+                box-shadow var(--snel), transform var(--snel);
+}
+
+/* Primaire knoppen */
+.w3-action-button,
+.w3-quick-actions a,
+.w3-auth-button,
+.w3-register-button,
+.w3-family-button,
+.w3-item-button,
+.w3-inventory-button,
+.w3-location-button {
+    color: var(--kaart);
+    background: var(--donkerbruin);
+    box-shadow: var(--schaduw-1);
+}
+
+.w3-action-button:hover,
+.w3-quick-actions a:hover,
+.w3-auth-button:hover,
+.w3-register-button:hover,
+.w3-family-button:hover,
+.w3-item-button:hover,
+.w3-inventory-button:hover,
+.w3-location-button:hover {
+    color: var(--kaart) !important;
+    background: var(--middenbruin) !important;
+    border-color: var(--middenbruin);
+    box-shadow: var(--schaduw-2);
+}
+
+/* Secundaire knoppen (annuleren) */
+.w3-item-cancel,
+.w3-location-cancel {
+    color: var(--donkerbruin);
+    background: var(--kaart);
+    border-color: var(--rand);
+}
+
+.w3-item-cancel:hover,
+.w3-location-cancel:hover {
+    color: var(--donkerbruin) !important;
+    background: var(--zandlicht) !important;
+    border-color: var(--zand);
+}
+
+/* Indrukken, focus en uitgeschakeld */
+.w3-action-button:active,
+.w3-quick-actions a:active,
+.w3-auth-button:active,
+.w3-register-button:active,
+.w3-family-button:active,
+.w3-item-button:active,
+.w3-item-cancel:active,
+.w3-inventory-button:active,
+.w3-location-button:active,
+.w3-location-cancel:active {
+    transform: translateY(1px);
+    box-shadow: none;
+}
+
+.w3-action-button:focus-visible,
+.w3-quick-actions a:focus-visible,
+.w3-auth-button:focus-visible,
+.w3-register-button:focus-visible,
+.w3-family-button:focus-visible,
+.w3-item-button:focus-visible,
+.w3-item-cancel:focus-visible,
+.w3-inventory-button:focus-visible,
+.w3-location-button:focus-visible,
+.w3-location-cancel:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+}
+
+.w3-auth-button:disabled,
+.w3-register-button:disabled,
+.w3-family-button:disabled,
+.w3-item-button:disabled,
+.w3-item-cancel:disabled,
+.w3-location-button:disabled,
+.w3-location-cancel:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Breedte en afstand per knop */
+.w3-auth-button,
+.w3-register-button,
+.w3-family-button,
+.w3-item-button,
+.w3-item-cancel,
+.w3-location-button,
+.w3-location-cancel {
+    display: flex;
+    width: 100%;
+}
+
+.w3-quick-actions a,
+.w3-action-button {
+    margin: 7px;
+}
+
+.w3-register-button   { margin-top: 15px; }
+.w3-family-button     { margin-top: 18px; }
+.w3-item-button       { margin-top: 10px; }
+.w3-item-cancel       { margin-top: 10px; }
+.w3-location-button   { margin-top: 10px; }
+.w3-location-cancel   { margin-top: 12px; }
+
+
+
+.w3-auth-container input,
+.w3-family-add input,
+.w3-inventory-search input,
+.w3-inventory-search select,
+.w3-item-field input,
+.w3-item-field select,
+.w3-item-field textarea,
+.w3-location-field input,
+.w3-location-field select,
+.w3-location-field textarea {
+    width: 100%;
+    min-height: var(--veld-hoogte);
+    padding: 12px 14px;
+    color: var(--donkerbruin);
+    background: var(--invoerveld);
+    border: 1px solid var(--rand);
+    border-radius: var(--radius-klein);
+    font-size: 16px;
+    transition: border-color var(--snel), box-shadow var(--snel), background var(--snel);
+}
+
+.w3-auth-container input:hover,
+.w3-family-add input:hover,
+.w3-inventory-search input:hover,
+.w3-inventory-search select:hover,
+.w3-item-field input:hover,
+.w3-item-field select:hover,
+.w3-item-field textarea:hover,
+.w3-location-field input:hover,
+.w3-location-field select:hover,
+.w3-location-field textarea:hover {
+    border-color: var(--zand);
+}
+
+.w3-auth-container input:focus,
+.w3-family-add input:focus,
+.w3-inventory-search input:focus,
+.w3-inventory-search select:focus,
+.w3-item-field input:focus,
+.w3-item-field select:focus,
+.w3-item-field textarea:focus,
+.w3-location-field input:focus,
+.w3-location-field select:focus,
+.w3-location-field textarea:focus {
+    outline: none;
+    background: var(--kaart);
+    border-color: var(--middenbruin);
+    box-shadow: var(--focus-ring);
+}
+
+/* Ongeldige invoer, pas na gebruik van het veld */
+.w3-auth-container input:user-invalid,
+.w3-family-add input:user-invalid,
+.w3-item-field input:user-invalid,
+.w3-item-field select:user-invalid,
+.w3-location-field input:user-invalid,
+.w3-location-field select:user-invalid {
+    border-color: var(--fout);
+}
+
+::placeholder {
+    color: var(--placeholder);
+    opacity: 1;
+}
+
+/* Keuzelijsten met eigen pijltje */
+.w3-inventory-search select,
+.w3-item-field select,
+.w3-location-field select {
+    padding-right: 40px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236B4A2E' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+/* Selectievakjes en keuzerondjes niet op volle breedte */
+.w3-auth-container input[type="checkbox"],
+.w3-auth-container input[type="radio"],
+.w3-item-field input[type="checkbox"],
+.w3-item-field input[type="radio"],
+.w3-location-field input[type="checkbox"],
+.w3-location-field input[type="radio"] {
+    width: auto;
+    min-height: 0;
+    margin: 0 8px 0 0;
+    accent-color: var(--donkerbruin);
+}
+
+/* Labels */
+.w3-auth-container label,
+.w3-family-add label,
+.w3-inventory-search label,
+.w3-item-field label,
+.w3-location-field label {
+    display: block;
+    color: var(--donkerbruin);
+    font-weight: bold;
+}
+
+.w3-auth-container label,
+.w3-inventory-search label {
+    margin-bottom: 7px;
+}
+
+.w3-family-add label {
+    margin: 15px 0 7px;
+}
+
+.w3-item-field label {
+    margin-bottom: 8px;
+}
+
+.w3-location-field label {
+    margin-bottom: 9px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Marges onder velden */
+.w3-auth-container input,
+.w3-inventory-search input,
+.w3-inventory-search select {
+    margin-bottom: 18px;
+}
+
+.w3-item-field {
+    margin-bottom: 20px;
+}
+
+.w3-location-field {
+    margin-bottom: 22px;
+}
+
+.w3-item-field textarea,
+.w3-location-field textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+.w3-location-field textarea {
+    min-height: 120px;
+}
+
+.w3-item-required,
+.w3-location-required {
+    color: var(--subtekst);
+    font-size: 13px;
+}
+
+.w3-location-required {
+    margin-bottom: 20px;
+}
+
+.w3-required {
+    color: var(--fout);
+}
+
+
+
+.w3-app-section,
+.w3-dashboard-card,
+.w3-family-card,
+.w3-family-add,
+.w3-inventory-card,
+.w3-inventory-search,
+.w3-item-form,
+.w3-location-form,
+.w3-auth-container {
+    background: var(--kaart);
+    color: var(--donkerbruin);
+    border: 1px solid var(--rand);
+    box-shadow: var(--schaduw-1);
+}
+
+.w3-app-section {
+    margin-bottom: 25px;
+    padding: 25px;
+    border-radius: var(--radius-groot);
+}
+
+.w3-dashboard-card {
+    display: block;
+    width: 100%;
+    margin: 0 0 28px;
+    padding: 24px;
+    border-radius: var(--radius-groot);
+}
+
+.w3-dashboard-card h3 {
+    margin: 0 0 6px;
+    font-family: var(--font-kop);
+    font-size: 27px;
+    letter-spacing: -0.01em;
+}
+
+.w3-dashboard-card p {
+    margin: 0;
+    color: var(--subtekst);
+    font-size: 13px;
+}
+
+/* Kaarten die een link zijn reageren op hover */
+a.w3-dashboard-card,
+a.w3-family-card,
+a.w3-inventory-card {
+    color: inherit;
+    transition: box-shadow var(--snel), border-color var(--snel), transform var(--snel);
+}
+
+a.w3-dashboard-card:hover,
+a.w3-family-card:hover,
+a.w3-inventory-card:hover {
+    border-color: var(--zand);
+    box-shadow: var(--schaduw-2);
+    transform: translateY(-1px);
+}
+
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.w3-quick-actions {
+    margin-top: 0;
+    padding: 25px;
+}
+
+
+
+.w3-scan-container {
+    width: 100%;
+    max-width: 500px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.w3-scan-container video,
+.w3-scan-container canvas {
+    max-width: 100%;
+    border-radius: var(--radius-groot);
+}
+
+.w3-scan-main {
+    min-height: calc(100vh - var(--nav-hoogte));
+    min-height: calc(100dvh - var(--nav-hoogte));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 100px;
+}
+
+.w3-scan-main section {
+    width: 100%;
+}
+
+.w3-locaties-overzicht {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 16px;
+}
+
+.w3-locaties-overzicht > div {
+    width: 100%;
+    margin: 0;
+}
+
+
+
+.w3-auth-main {
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 15px;
+}
+
+.w3-auth-container {
+    width: 100%;
+    max-width: 450px;
+    flex: none;
+    margin: 0 auto;
+    padding: 30px;
+    border-radius: var(--radius-groot);
+    box-shadow: var(--schaduw-2);
+}
+
+.w3-auth-title {
+    margin: 0 0 10px;
+    font-family: var(--font-kop);
+    text-align: center;
+}
+
+.w3-auth-description {
+    margin-bottom: 25px;
+    color: var(--subtekst);
+    text-align: center;
+}
+
+.w3-auth-link {
+    margin-top: 22px;
+    color: var(--subtekst);
+    text-align: center;
+}
+
+.w3-auth-link a {
+    color: var(--middenbruin);
+    font-weight: bold;
+}
+
+.w3-auth-link a:hover {
+    text-decoration: underline;
+}
+
+/* Foutmelding: alleen zichtbaar als er tekst in staat */
+.w3-auth-error {
+    margin: 0 0 16px;
+    padding: 10px 14px;
+    color: var(--fout);
+    background: var(--fout-licht);
+    border: 1px solid var(--fout-rand);
+    border-radius: var(--radius-klein);
+    font-size: 14px;
+    text-align: center;
+}
+
+.w3-auth-error:empty {
+    display: none;
+}
+
+/* Logo op de loginpagina */
+.w3-login-logo {
+    display: block;
+    width: 100%;
+    flex: none;
+    margin: 0;
+    padding: 15px 10px 10px;
+    text-align: center;
+}
+
+.w3-login-logo img {
+    display: block;
+    width: 85px;
+    height: 85px;
+    margin: 0 auto 5px;
+    object-fit: contain;
+    border-radius: 50%;
+}
+
+.w3-login-logo h1 {
+    margin: 0 0 4px;
+    color: var(--nachtbruin);
+    font-family: var(--font-kop);
+    font-size: 25px;
+}
+
+.w3-login-logo p {
+    margin: 0;
+    color: var(--middenbruin);
+}
+
+.w3-login-logo + section {
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+    padding-top: 5px;
+}
+
+.w3-login-logo + section h2 {
+    margin-top: 5px;
+}
+
+/* Registratieformulier */
+.w3-register-container {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 30px;
+}
+
+.w3-register-container h2 {
+    margin: 25px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--rand);
+}
+
+.w3-register-container h2:first-of-type {
+    margin-top: 0;
+}
+
+.w3-register-field {
+    margin-bottom: 18px;
+}
+
+.w3-profile-preview {
+    display: block;
+    width: 130px;
+    height: 130px;
+    margin: 15px auto;
+    object-fit: cover;
+    border: 2px solid var(--zand);
+    border-radius: 50%;
+    box-shadow: var(--schaduw-2);
+}
+
+
+.w3-family-card,
+.w3-inventory-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+    padding: 18px;
+    border-radius: var(--radius-midden);
+}
+
+.w3-family-avatar {
+    flex: 0 0 48px;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--kaart);
+    background: var(--donkerbruin);
+    border-radius: 50%;
+    font-size: 20px;
+    font-weight: bold;
+    box-shadow: 0 0 0 3px var(--zandlicht);
+}
+
+.w3-family-info,
+.w3-inventory-info {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.w3-family-info h3 {
+    margin: 0;
+    font-size: 17px;
+}
+
+.w3-family-info p {
+    margin: 5px 0 0;
+    color: var(--subtekst);
+    font-size: 14px;
+}
+
+.w3-family-status {
+    padding: 6px 12px;
+    color: var(--middenbruin);
+    background: var(--zandlicht);
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.w3-family-add {
+    padding: 22px;
+    border-radius: var(--radius-midden);
+}
+
+.w3-family-add h3 {
+    font-family: var(--font-kop);
+}
+
+.w3-family-add p {
+    color: var(--subtekst);
+}
+
+
+
+.w3-item-form {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto 30px;
+    padding: 25px;
+    border-radius: var(--radius-groot);
+}
+
+.w3-inventory-search {
+    margin-bottom: 18px;
+    padding: 20px;
+    border-radius: var(--radius-midden);
+}
+
+.w3-inventory-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.w3-inventory-heading h3 {
+    margin: 0;
+    font-family: var(--font-kop);
+}
+
+.w3-inventory-icon {
+    flex: 0 0 50px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--zandlicht);
+    border-radius: var(--radius-knop);
+    font-size: 25px;
+}
+
+.w3-inventory-info h3 {
+    margin: 0 0 7px;
+    font-size: 17px;
+}
+
+.w3-inventory-info p {
+    margin: 3px 0;
+    color: var(--subtekst);
+    font-size: 14px;
+}
+
+
+
+.w3-location-form {
+    width: 100%;
+    max-width: 650px;
+    margin: 15px auto 40px;
+    padding: 32px;
+    border-radius: var(--radius-groot);
+    box-shadow: var(--schaduw-2);
+}
+
+
+
+#sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 250px;
+    height: 100%;
+    padding-top: 20px;
+    overflow-x: hidden;
+    color: var(--zand);
+    background: var(--donkerbruin);
+    transition: width 0.3s ease;
+}
+
+#sidebar h3 {
+    padding: 10px 16px;
+    color: var(--zand);
+    font-weight: bold;
+}
+
+#sidebar a {
+    display: block;
+    padding: 14px 20px;
+    color: var(--zand);
+    transition: background var(--snel);
+}
+
+#sidebar a:hover {
+    color: var(--kaart);
+    background: var(--middenbruin);
+}
+
+#sidebar.sidebar-dicht {
+    width: 0;
+    padding: 0;
+}
+
+#main {
+    min-height: 100vh;
+    margin-left: 250px;
+    padding: 25px;
+    color: var(--donkerbruin);
+    background: var(--zandlicht);
+    transition: margin-left 0.3s ease;
+}
+
+#main.content-volledig {
+    margin-left: 0;
+}
+
+.menu-knop {
+    padding: 10px 15px;
+    color: var(--zand);
+    background: var(--middenbruin);
+    border: 0;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.menu-knop:hover {
+    background: var(--donkerbruin);
+}
+
+
+
+@media (max-width: 600px) {
+    :root {
+        --nav-hoogte: 70px;
+    }
+
+    .w3-app-header {
+        min-height: 62px;
+        padding: calc(10px + var(--veilig-boven)) 16px 10px;
+    }
+
+    .w3-app-header h1 {
+        font-size: 21px;
+    }
+
+    .w3-app-main {
+        padding: 20px 14px calc(var(--nav-hoogte) + var(--veilig-onder) + 30px);
+    }
+
+    .w3-app-main h2,
+    .w3-register-container h2 {
+        font-size: 23px;
+    }
+
+    .w3-app-section,
+    .w3-dashboard-card {
+        padding: 18px;
+        margin-bottom: 20px;
+    }
+
+    .w3-quick-actions a,
+    .w3-action-button {
+        display: flex;
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .w3-auth-container {
+        padding: 22px;
+    }
+
+    .w3-register-container {
+        margin: 15px;
+        padding: 20px;
+    }
+
+    .w3-location-form {
+        margin-top: 5px;
+        padding: 22px 18px;
+    }
+
+    .w3-location-field {
+        margin-bottom: 20px;
+    }
+
+    .w3-inventory-heading {
+        align-items: flex-start;
+    }
+
+    .w3-family-card {
+        flex-wrap: wrap;
+    }
+
+    .w3-family-status {
+        margin-left: auto;
+    }
+
+    .w3-bottom-nav .w3-nav-item {
+        font-size: 11px;
+    }
+}
+
+
+
+a:focus-visible,
+button:focus-visible {
+    outline: 2px solid var(--middenbruin);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        transition: none !important;
+        animation: none !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+
+
+.w3-brown {
+    color: var(--kaart) !important;
+    background-color: var(--donkerbruin) !important;
+}
+
+.w3-button.w3-brown:hover {
+    color: var(--kaart) !important;
+    background-color: var(--middenbruin) !important;
+}
+
+.w3-border {
+    border-color: var(--rand) !important;
+}
+
+.w3-app-main .w3-card {
+    box-shadow: var(--schaduw-1);
+}
+
+.w3-app-main .w3-card.w3-round-large {
+    border-radius: var(--radius-midden);
+}
+
+
+
+[hidden] {
+    display: none !important;
+}
+
+.w3-profile-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 25px;
+    padding: 28px 20px;
+    text-align: center;
+    border-radius: var(--radius-groot);
+}
+
+.w3-profile-hero h2 {
+    margin: 14px 0 2px;
+}
+
+.w3-profile-hero p {
+    margin: 0;
+    color: var(--subtekst);
+}
+
+.w3-profile-avatar,
+.w3-profile-initial {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+}
+
+.w3-profile-avatar {
+    object-fit: cover;
+    border: 3px solid var(--zand);
+    box-shadow: var(--schaduw-2);
+}
+
+.w3-profile-initial {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--kaart);
+    background: var(--donkerbruin);
+    font-family: var(--font-kop);
+    font-size: 46px;
+    font-weight: 700;
+    box-shadow: 0 0 0 4px var(--zandlicht);
+}
+
+.w3-profile-note {
+    margin: 0 0 20px;
+    padding: 12px 16px;
+    color: var(--middenbruin);
+    background: var(--zandlicht);
+    border-radius: var(--radius-klein);
+    font-size: 14px;
+}
+
+.w3-profile-list {
+    margin: 10px 0 0;
+}
+
+.w3-profile-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rand);
+}
+
+.w3-profile-row:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+}
+
+.w3-profile-row dt {
+    flex: 0 0 40%;
+    color: var(--subtekst);
+    font-size: 14px;
+}
+
+.w3-profile-row dd {
+    margin: 0;
+    font-weight: 600;
+    text-align: right;
+    overflow-wrap: anywhere;
+}
+
+.w3-profile-row dd.w3-profile-leeg {
+    color: var(--placeholder);
+    font-weight: 400;
+}
+
+.w3-profile-wachtwoord {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.w3-profile-oog {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    color: var(--middenbruin);
+    background: transparent;
+    border: 0;
+    border-radius: var(--radius-klein);
+    cursor: pointer;
+    transition: background var(--snel), color var(--snel);
+}
+
+.w3-profile-oog:hover {
+    color: var(--donkerbruin);
+    background: var(--zandlicht);
+}
+
+.w3-logo-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.w3-logo-icon {
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
+    border-radius: 50%;
+}
+
+@media (max-width: 600px) {
+    .w3-logo-icon {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+.logout-btn {
+  padding: 0.65rem 1.25rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  background: #dc2626;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background: #b91c1c;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 1000;
+}
+
+.modal-backdrop.is-open {
+  display: flex;
+}
+
+.modal {
+  background: #ffffff;
+  padding: 1.75rem;
+  border-radius: 12px;
+  width: min(90%, 360px);
+  text-align: center;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+}
+
+.modal h2 {
+  margin: 0 0 1.25rem;
+  font-size: 1.25rem;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.btn-yes,
+.btn-no {
+  padding: 0.6rem 1.4rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-yes {
+  background: #dc2626;
+  color: #ffffff;
+}
+
+.btn-no {
+  background: #e5e7eb;
+  color: #111827;
+}

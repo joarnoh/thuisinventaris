@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="nl">
+    <script src="auth.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#F7F1ED">
+    <title>Thuisinventaris - Mijn profiel</title>
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/6/w3.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="logo.png">
+</head>
+<body>
+
+    <!-- Bovenbalk -->
+    <header class="w3-app-header">
+        <h1>
+    <a href="index.html" class="w3-logo-link">
+        <img src="logo.png" alt="" class="w3-logo-icon">
+        Thuisinventaris
+    </a>
+</h1>
+
+        <div class="w3-header-actions">
+            <a href="instellingen.html" class="w3-settings-button" aria-label="Instellingen">
+                <svg viewBox="0 0 24 24" width="23" height="23" fill="none" stroke="currentColor"
+                     stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                </svg>
+            </a>
+        </div>
+    </header>
+
+    <main class="w3-app-main">
+
+        <!-- Als er geen account gevonden is -->
+        <section id="profiel-leeg" class="w3-container w3-padding w3-center" hidden>
+            <div class="w3-empty-state w3-container w3-white w3-border w3-round-large">
+                <h3>Geen account gevonden</h3>
+                <p>Maak eerst een account aan om je profiel te kunnen zien.</p>
+                <a href="register.html" class="w3-button w3-brown w3-round-large">Account aanmaken</a>
+            </div>
+        </section>
+
+        <!-- Profiel -->
+        <div id="profiel-inhoud" hidden>
+
+            <section class="w3-profile-hero w3-card w3-white w3-border w3-round-large">
+                <img id="profiel-foto" class="w3-profile-avatar" src="" alt="Profielfoto" hidden>
+                <div id="profiel-initiaal" class="w3-profile-initial" aria-hidden="true"></div>
+                <h2 id="profiel-naam"></h2>
+                <p id="profiel-gebruikersnaam"></p>
+            </section>
+
+            <p id="profiel-melding" class="w3-profile-note" hidden>
+                Van dit account zijn alleen de inloggegevens bewaard. De overige gegevens
+                zijn niet opgeslagen toen je je registreerde.
+            </p>
+
+            <section class="w3-app-section w3-card w3-white w3-border w3-round-large">
+                <h3>Accountgegevens</h3>
+                <dl class="w3-profile-list">
+                    <div class="w3-profile-row">
+                        <dt>Gebruikersnaam</dt>
+                        <dd id="p-username"></dd>
+                    </div>
+                    <div class="w3-profile-row">
+                        <dt>Wachtwoord</dt>
+                        <dd class="w3-profile-wachtwoord">
+                            <span id="p-password">••••••••</span>
+                            <button type="button" id="toon-wachtwoord" class="w3-profile-oog"
+                                    aria-label="Wachtwoord tonen" aria-pressed="false">
+                                <svg id="oog-open" viewBox="0 0 24 24" width="20" height="20" fill="none"
+                                     stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                     stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                                <svg id="oog-dicht" viewBox="0 0 24 24" width="20" height="20" fill="none"
+                                     stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                     stroke-linejoin="round" aria-hidden="true" hidden>
+                                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                                    <line x1="1" y1="1" x2="23" y2="23"></line>
+                                </svg>
+                            </button>
+                        </dd>
+                    </div>
+                    <div class="w3-profile-row">
+                        <dt>Wachtwoordhint</dt>
+                        <dd id="p-password_hint"></dd>
+                    </div>
+                </dl>
+            </section>
+
+            <section class="w3-app-section w3-card w3-white w3-border w3-round-large">
+                <h3>Persoonlijke gegevens</h3>
+                <dl class="w3-profile-list">
+                    <div class="w3-profile-row">
+                        <dt>Voornaam</dt>
+                        <dd id="p-first_name"></dd>
+                    </div>
+                    <div class="w3-profile-row">
+                        <dt>Tussenvoegsel</dt>
+                        <dd id="p-prefix"></dd>
+                    </div>
+                    <div class="w3-profile-row">
+                        <dt>Achternaam</dt>
+                        <dd id="p-last_name"></dd>
+                    </div>
+                    <div class="w3-profile-row">
+                        <dt>E-mailadres</dt>
+                        <dd id="p-email"></dd>
+                    </div>
+                    <div class="w3-profile-row">
+                        <dt>Telefoonnummer</dt>
+                        <dd id="p-phone"></dd>
+                    </div>
+                    <div class="w3-profile-row">
+                        <dt>Geboortedatum</dt>
+                        <dd id="p-birthdate"></dd>
+                    </div>
+                </dl>
+            </section>
+
+            <a href="instellingen.html" class="w3-button w3-item-cancel w3-round-large">
+                Terug naar instellingen
+            </a>
+
+        </div>
+
+    </main>
+
+    <!-- Onderste navigatie -->
+    <nav class="w3-bottom-nav" aria-label="Hoofdmenu">
+
+        <a href="index.html" class="w3-nav-item">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M3 10.5 12 3l9 7.5"></path>
+                <path d="M5.5 9v11h13V9"></path>
+                <path d="M9 20v-6h6v6"></path>
+            </svg>
+            <small>Spullen</small>
+        </a>
+
+        <a href="scan.html" class="w3-nav-item">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 8V4h4"></path>
+                <path d="M16 4h4v4"></path>
+                <path d="M20 16v4h-4"></path>
+                <path d="M8 20H4v-4"></path>
+                <path d="M8 12h8"></path>
+            </svg>
+            <small>Scan QR</small>
+        </a>
+
+        <a href="locaties.html" class="w3-nav-item">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"></path>
+                <circle cx="12" cy="10" r="2.5"></circle>
+            </svg>
+            <small>Locaties</small>
+        </a>
+
+        <a href="familie.html" class="w3-nav-item">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="9" cy="8" r="3"></circle>
+                <circle cx="17" cy="9" r="2.5"></circle>
+                <path d="M3 20v-2a6 6 0 0 1 12 0v2"></path>
+                <path d="M16 15a5 5 0 0 1 5 5"></path>
+            </svg>
+            <small>Familie</small>
+        </a>
+
+    </nav>
+
+    <script>
+        // ==========================================
+        // PROFIEL TONEN
+        // ==========================================
+
+        function leesOpslag(sleutel) {
+            try {
+                return JSON.parse(localStorage.getItem(sleutel));
+            } catch (fout) {
+                return null;
+            }
+        }
+
+        // Tekst in een veld zetten, of een streepje als het leeg is
+        function vulVeld(id, tekst) {
+            const veld = document.getElementById(id);
+
+            if (tekst) {
+                veld.textContent = tekst;
+                veld.classList.remove("w3-profile-leeg");
+            } else {
+                veld.textContent = "Niet ingevuld";
+                veld.classList.add("w3-profile-leeg");
+            }
+        }
+
+        function formatteerDatum(datum) {
+            if (!datum) return "";
+
+            const waarde = new Date(datum + "T00:00:00");
+
+            if (isNaN(waarde)) return datum;
+
+            return waarde.toLocaleDateString("nl-NL", {
+                day: "numeric",
+                month: "long",
+                year: "numeric"
+            });
+        }
+
+        function toonProfiel() {
+            const account = leesOpslag("thuisinventaris-user");
+            const profiel = leesOpslag("thuisinventaris-profiel");
+
+            if (!account && !profiel) {
+                document.getElementById("profiel-leeg").hidden = false;
+                return;
+            }
+
+            const gegevens = profiel || {};
+            const gebruikersnaam = gegevens.username || (account && account.username) || "";
+
+            const volledigeNaam = [gegevens.first_name, gegevens.prefix, gegevens.last_name]
+                .filter(Boolean)
+                .join(" ");
+
+            // Kop
+            document.getElementById("profiel-naam").textContent = volledigeNaam || gebruikersnaam;
+            document.getElementById("profiel-gebruikersnaam").textContent = "@" + gebruikersnaam;
+
+            // Foto of beginletter
+            const foto = document.getElementById("profiel-foto");
+            const initiaal = document.getElementById("profiel-initiaal");
+
+            if (gegevens.profile_picture) {
+                foto.src = gegevens.profile_picture;
+                foto.hidden = false;
+                initiaal.hidden = true;
+            } else {
+                initiaal.textContent = (gegevens.first_name || gebruikersnaam || "?")
+                    .charAt(0)
+                    .toUpperCase();
+            }
+
+            // Gegevens
+            vulVeld("p-username", gebruikersnaam);
+            vulVeld("p-password_hint", gegevens.password_hint);
+            vulVeld("p-first_name", gegevens.first_name);
+            vulVeld("p-prefix", gegevens.prefix);
+            vulVeld("p-last_name", gegevens.last_name);
+            vulVeld("p-email", gegevens.email);
+            vulVeld("p-phone", gegevens.phone);
+            vulVeld("p-birthdate", formatteerDatum(gegevens.birthdate));
+
+            // Oud account zonder extra gegevens
+            if (!profiel) {
+                document.getElementById("profiel-melding").hidden = false;
+            }
+
+            document.getElementById("profiel-inhoud").hidden = false;
+        }
+
+        // Oogje: wachtwoord tonen of verbergen
+        function koppelOogje() {
+            const account = leesOpslag("thuisinventaris-user");
+            const wachtwoord = account && account.password;
+
+            const knop = document.getElementById("toon-wachtwoord");
+            const veld = document.getElementById("p-password");
+            const oogOpen = document.getElementById("oog-open");
+            const oogDicht = document.getElementById("oog-dicht");
+
+            // Geen wachtwoord bewaard: oogje weghalen
+            if (!wachtwoord) {
+                knop.hidden = true;
+                veld.textContent = "Niet beschikbaar";
+                veld.classList.add("w3-profile-leeg");
+                return;
+            }
+
+            knop.addEventListener("click", function () {
+                const tonen = knop.getAttribute("aria-pressed") !== "true";
+
+                veld.textContent = tonen ? wachtwoord : "••••••••";
+                knop.setAttribute("aria-pressed", String(tonen));
+                knop.setAttribute("aria-label", tonen ? "Wachtwoord verbergen" : "Wachtwoord tonen");
+
+                oogOpen.toggleAttribute("hidden", tonen);
+                oogDicht.toggleAttribute("hidden", !tonen);
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            toonProfiel();
+            koppelOogje();
+        });
+    </script>
+
+</body>
+</html>

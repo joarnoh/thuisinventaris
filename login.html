@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inloggen - Thuisinventaris</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="logo.png">
+</head>
+
+<body>
+
+    
+<main class="w3-auth-main">
+
+<div class="w3-login-logo">
+    <img src="logo.png" alt="Thuisinventaris logo">
+    <h1>Thuisinventaris</h1>
+    <p>Al je spullen overzichtelijk op één plek.</p>
+</div>
+
+    <div class="w3-auth-container">
+
+        <h1 class="w3-auth-title">Thuisinventaris</h1>
+        <p class="w3-auth-description">Welkom terug! Log in op je account.</p>
+
+        <form id="login-form">
+
+            <h2 class="w3-auth-title">Inloggen</h2>
+
+            <label for="login_user">Gebruikersnaam</label>
+            <input type="text" id="login_user" required>
+
+            <label for="login_pass">Wachtwoord</label>
+            <input type="password" id="login_pass" required>
+
+            <button type="submit" class="w3-auth-button">
+                Inloggen
+            </button>
+
+            <p id="login-error" class="w3-auth-error"></p>
+
+        </form>
+
+        <p class="w3-auth-link">
+            Nog geen account?
+            <a href="register.html">Registreer hier</a>
+        </p>
+
+    </div>
+
+</main>
+
+    
+<script>
+    const formulier = document.getElementById("login-form");
+
+    formulier.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const username = document.getElementById("login_user").value.trim();
+        const password = document.getElementById("login_pass").value;
+
+        const opgeslagenGegevens = localStorage.getItem("thuisinventaris-user");
+
+        if (!opgeslagenGegevens) {
+            alert("Er is nog geen account geregistreerd.");
+            return;
+        }
+
+        const gebruiker = JSON.parse(opgeslagenGegevens);
+
+        console.log("Ingevoerde gebruikersnaam:", username);
+        console.log("Opgeslagen gebruikersnaam:", gebruiker.username);
+
+        if (
+            username === gebruiker.username &&
+            password === gebruiker.password
+        ) {
+            localStorage.setItem("thuisinventaris-ingelogd", "true");
+
+            window.location.href = "index.html";
+        } else {
+            document.getElementById("login-error").textContent =
+                "Gebruikersnaam of wachtwoord is onjuist.";
+        }
+    });
+</script>
+
+
+</body>
+</html>

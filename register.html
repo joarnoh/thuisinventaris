@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/6/w3.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="logo.png">
+    <title>Registreren - Thuisinventaris</title>
+</head>
+<body>
+
+   
+<main class="w3-auth-main">
+
+     <div class="w3-auth-container w3-register-container">
+
+        <h1 class="w3-auth-title">Thuisinventaris</h1>
+        <p class="w3-auth-description">Maak een account aan.</p>
+
+        <form id="register-form">
+
+            <h2>Accountgegevens</h2>
+
+            <label for="username">Gebruikersnaam *</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Wachtwoord *</label>
+            <input type="password" id="password" name="password" required>
+
+            <label for="password_repeat">Wachtwoord herhalen *</label>
+            <input type="password" id="password_repeat" name="password_repeat" required>
+
+            <label for="password_hint">Hint voor wachtwoord vergeten</label>
+            <input type="text" id="password_hint" name="password_hint">
+
+            <h2>Persoonlijke gegevens</h2>
+
+            <label for="first_name">Voornaam *</label>
+            <input type="text" id="first_name" name="first_name" required>
+
+            <label for="prefix">Tussenvoegsel</label>
+            <input type="text" id="prefix" name="prefix">
+
+            <label for="last_name">Achternaam *</label>
+            <input type="text" id="last_name" name="last_name" required>
+
+            <label for="email">E-mailadres *</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="phone">Telefoonnummer</label>
+            <input type="tel" id="phone" name="phone">
+
+            <label for="birthdate">Geboortedatum *</label>
+            <input type="date" id="birthdate" name="birthdate" required>
+
+            <label for="profile_picture">Profielfoto *</label>
+            <input type="file" id="profile_picture" name="profile_picture"
+                accept="image/*" required>
+
+            <img id="preview" class="w3-profile-preview"
+                src="" alt="Voorbeeld profielfoto" style="display:none;">
+
+            <button type="submit" class="w3-register-button">
+                Account aanmaken
+            </button>
+
+        </form>
+
+        <p class="w3-auth-link">
+            Heb je al een account?
+            <a href="login.html">Log hier in</a>
+        </p>
+
+    </div>
+
+</main>
+
+
+
+
+<script>
+    const formulier = document.getElementById("register-form");
+    const profielfoto = document.getElementById("profile_picture");
+
+    // Foto vierkant uitsnijden en verkleinen, zodat hij in localStorage past
+    function verkleinFoto(bestand, maat = 256) {
+        return new Promise(function(resolve, reject) {
+            const url = URL.createObjectURL(bestand);
+            const afbeelding = new Image();
+
+            afbeelding.onload = function() {
+                const canvas = document.createElement("canvas");
+                canvas.width = maat;
+                canvas.height = maat;
+
+                const kant = Math.min(afbeelding.width, afbeelding.height);
+                const x = (afbeelding.width - kant) / 2;
+                const y = (afbeelding.height - kant) / 2;
+
+                canvas.getContext("2d").drawImage(afbeelding, x, y, kant, kant, 0, 0, maat, maat);
+
+                URL.revokeObjectURL(url);
+                resolve(canvas.toDataURL("image/jpeg", 0.85));
+            };
+
+            afbeelding.onerror = function() {
+                URL.revokeObjectURL(url);
+                reject(new Error("De foto kon niet worden gelezen."));
+            };
+
+            afbeelding.src = url;
+        });
+    }
+
+    formulier.addEventListener("submit", async function(event) {
+        event.preventDefault();
+
+        const waarde = id => document.getElementById(id).value.trim();
+
+        const wachtwoord = document.getElementById("password").value;
+        const herhaalWachtwoord = document.getElementById("password_repeat").value;
+        const bestand = profielfoto.files[0];
+
+        // Wachtwoorden controleren
+        if (wachtwoord !== herhaalWachtwoord) {
+            alert("De wachtwoorden komen niet overeen!");
+            return;
+        }
+
+        // Profielfoto controleren
+        if (!bestand || !bestand.type.startsWith("image/")) {
+            alert("Selecteer een geldige profielfoto!");
+            return;
+        }
+
+        try {
+            const foto = await verkleinFoto(bestand);
+
+            // Inloggegevens (zoals voorheen)
+            const gebruiker = {
+                username: waarde("username"),
+                password: wachtwoord
+            };
+
+            // Profiel: alle ingevulde gegevens, zonder wachtwoord
+            const profiel = {
+                username: waarde("username"),
+                password_hint: waarde("password_hint"),
+                first_name: waarde("first_name"),
+                prefix: waarde("prefix"),
+                last_name: waarde("last_name"),
+                email: waarde("email"),
+                phone: waarde("phone"),
+                birthdate: waarde("birthdate"),
+                profile_picture: foto
+            };
+
+            localStorage.setItem("thuisinventaris-user", JSON.stringify(gebruiker));
+            localStorage.setItem("thuisinventaris-profiel", JSON.stringify(profiel));
+
+            alert("Registratie gelukt! Je kunt nu inloggen.");
+
+            window.location.href = "login.html";
+
+        } catch (fout) {
+            alert("Opslaan is niet gelukt: " + fout.message);
+        }
+    });
+
+    // Profielfoto als voorbeeld tonen
+    profielfoto.addEventListener("change", function() {
+        const bestand = profielfoto.files[0];
+        const preview = document.getElementById("preview");
+
+        if (bestand && bestand.type.startsWith("image/")) {
+            preview.src = URL.createObjectURL(bestand);
+            preview.style.display = "block";
+        } else {
+            preview.src = "";
+            preview.style.display = "none";
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="nl">
+<script src="auth.js"></script>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Thuisinventaris - Familie</title>
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/6/w3.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="logo.png">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="w3-app-header">
+    <h1>
+        <a href="index.html" class="w3-logo-link">
+        <img src="logo.png" alt="" class="w3-logo-icon">
+            Thuisinventaris
+        </a>
+    </h1>
+        <div class="w3-header-actions">
+
+            <div class="w3-header-actions">
+            <a href="instellingen.html" class="w3-settings-button" aria-label="Instellingen">
+                <svg viewBox="0 0 24 24" width="23" height="23" fill="none" stroke="currentColor"
+                     stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                </svg>
+            </a>
+            </div>
+
+            
+
+        </div>
+
+    </header>
+
+    <!-- Hoofdinhoud -->
+    <main class="w3-app-main">
+
+        <section class="w3-container w3-padding">
+            <h2>Familie</h2>
+            <p>Beheer de personen waarmee je de inventaris deelt.</p>
+        </section>
+
+        <!-- Familieleden -->
+        <section class="w3-container w3-padding">
+
+            <div class="w3-family-card w3-card w3-white w3-round-large">
+
+                <div class="w3-family-avatar">J</div>
+
+                <div class="w3-family-info">
+                    <h3>Joarno</h3>
+                    <p>Eigenaar</p>
+                </div>
+
+                <span class="w3-family-status">Eigenaar</span>
+
+            </div>
+
+            <div class="w3-family-card w3-card w3-white w3-round-large">
+
+                <div class="w3-family-avatar">.</div>
+
+                <div class="w3-family-info">
+                    <h3>....</h3>
+                    <p>Deelnemer</p>
+                </div>
+
+                <span class="w3-family-status">Actief</span>
+
+            </div>
+
+        </section>
+
+        <!-- Familielid toevoegen -->
+        <section class="w3-container w3-padding">
+
+            <div class="w3-family-add w3-card w3-white w3-round-large">
+
+                <h3>Familielid toevoegen</h3>
+
+                <p>
+                    Nodig iemand uit om samen de inventaris te beheren.
+                </p>
+
+                <label for="family-email">E-mailadres</label>
+
+                <input
+                    class="w3-input w3-border w3-round"
+                    type="email"
+                    id="family-email"
+                    placeholder="naam@voorbeeld.nl"
+                >
+
+                <button
+                    class="w3-button w3-round-large w3-family-button"
+                    type="button"
+                    onclick="alert('Deze functie wordt later toegevoegd.')"
+                >
+                    Familielid uitnodigen
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <nav class="w3-bottom-nav">
+
+    <a href="index.html" class="w3-nav-item w3-nav-active">
+        <svg viewBox="0 0 24 24">
+            <path d="M3 10.5 12 3l9 7.5"></path>
+            <path d="M5.5 9v11h13V9"></path>
+            <path d="M9 20v-6h6v6"></path>
+        </svg>
+        <small>Spullen</small>
+    </a>
+
+    <a href="scan.html" class="w3-nav-item">
+        <svg viewBox="0 0 24 24">
+            <path d="M4 8V4h4"></path>
+            <path d="M16 4h4v4"></path>
+            <path d="M20 16v4h-4"></path>
+            <path d="M8 20H4v-4"></path>
+            <path d="M8 12h8"></path>
+        </svg>
+        <small>Scan QR</small>
+    </a>
+
+    <a href="locaties.html" class="w3-nav-item">
+        <svg viewBox="0 0 24 24">
+            <path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"></path>
+            <circle cx="12" cy="10" r="2.5"></circle>
+        </svg>
+        <small>Locaties</small>
+    </a>
+
+    <a href="familie.html" class="w3-nav-item">
+        <svg viewBox="0 0 24 24">
+            <circle cx="9" cy="8" r="3"></circle>
+            <circle cx="17" cy="9" r="2.5"></circle>
+            <path d="M3 20v-2a6 6 0 0 1 12 0v2"></path>
+            <path d="M16 15a5 5 0 0 1 5 5"></path>
+        </svg>
+        <small>Familie</small>
+    </a>
+
+</nav>
+
+</body>
+</html>
