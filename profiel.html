@@ -59,6 +59,72 @@
                 zijn niet opgeslagen toen je je registreerde.
             </p>
 
+            
+<div class="w3-container w3-margin-bottom">
+    <button type="button" id="profiel-bewerken-knop"
+        class="w3-button w3-brown w3-round-large">
+            Bewerken
+    </button>
+</div>
+
+<section id="profiel-bewerkformulier"
+    class="w3-app-section w3-card w3-white w3-border w3-round-large"
+    hidden>
+
+    <h3>Gegevens aanpassen</h3>
+
+    <form id="profiel-form">
+
+        <label for="edit-username">Gebruikersnaam</label>
+        <input class="w3-input w3-border" type="text"
+            id="edit-username" required>
+
+        <label for="edit-first_name">Voornaam</label>
+        <input class="w3-input w3-border" type="text"
+            id="edit-first_name" required>
+
+        <label for="edit-prefix">Tussenvoegsel</label>
+        <input class="w3-input w3-border" type="text"
+            id="edit-prefix">
+
+        <label for="edit-last_name">Achternaam</label>
+        <input class="w3-input w3-border" type="text"
+            id="edit-last_name" required>
+
+        <label for="edit-email">E-mailadres</label>
+        <input class="w3-input w3-border" type="email"
+            id="edit-email" required>
+
+        <label for="edit-phone">Telefoonnummer</label>
+        <input class="w3-input w3-border" type="tel"
+            id="edit-phone">
+
+        <label for="edit-birthdate">Geboortedatum</label>
+        <input class="w3-input w3-border" type="date"
+            id="edit-birthdate" required>
+
+        <label for="edit-password_hint">Wachtwoordhint</label>
+        <input class="w3-input w3-border" type="text"
+            id="edit-password_hint">
+
+        <label for="edit-profile-picture">Profielfoto wijzigen</label>
+        <input class="w3-input w3-border" type="file"
+            id="edit-profile-picture" accept="image/*">
+
+        <button type="submit"
+            class="w3-button w3-brown w3-round-large w3-block w3-margin-top">
+            Wijzigingen opslaan
+        </button>
+
+        <button type="button" id="profiel-annuleren"
+            class="w3-button w3-light-grey w3-round-large w3-block w3-margin-top">
+            Annuleren
+        </button>
+
+    </form>
+</section>
+
+
             <section class="w3-app-section w3-card w3-white w3-border w3-round-large">
                 <h3>Accountgegevens</h3>
                 <dl class="w3-profile-list">
@@ -298,9 +364,142 @@
         }
 
         document.addEventListener("DOMContentLoaded", function () {
-            toonProfiel();
-            koppelOogje();
+    toonProfiel();
+    koppelOogje();
+
+    const bewerkKnop = document.getElementById("profiel-bewerken-knop");
+    const formulier = document.getElementById("profiel-form");
+    const bewerkFormulier = document.getElementById("profiel-bewerkformulier");
+    const annuleerKnop = document.getElementById("profiel-annuleren");
+
+    let profiel = leesOpslag("thuisinventaris-profiel") || {};
+    const account = leesOpslag("thuisinventaris-user") || {};
+
+    // Huidige gegevens in de invoervelden zetten
+    function vulBewerkFormulier() {
+        profiel = leesOpslag("thuisinventaris-profiel") || {};
+
+        document.getElementById("edit-username").value =
+            profiel.username || account.username || "";
+
+        document.getElementById("edit-first_name").value =
+            profiel.first_name || "";
+
+        document.getElementById("edit-prefix").value =
+            profiel.prefix || "";
+
+        document.getElementById("edit-last_name").value =
+            profiel.last_name || "";
+
+        document.getElementById("edit-email").value =
+            profiel.email || "";
+
+        document.getElementById("edit-phone").value =
+            profiel.phone || "";
+
+        document.getElementById("edit-birthdate").value =
+            profiel.birthdate || "";
+
+        document.getElementById("edit-password_hint").value =
+            profiel.password_hint || "";
+    }
+
+    // Bewerkmodus openen
+    bewerkKnop.addEventListener("click", function () {
+        vulBewerkFormulier();
+        bewerkFormulier.hidden = false;
+        bewerkKnop.hidden = true;
+    });
+
+    // Bewerkmodus annuleren
+    annuleerKnop.addEventListener("click", function () {
+        bewerkFormulier.hidden = true;
+        bewerkKnop.hidden = false;
+    });
+
+    // Nieuwe profielfoto tijdelijk inlezen
+    let nieuweFoto = null;
+
+    document.getElementById("edit-profile-picture")
+        .addEventListener("change", function () {
+
+            const bestand = this.files[0];
+
+            if (!bestand) {
+                nieuweFoto = null;
+                return;
+            }
+
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                nieuweFoto = e.target.result;
+            };
+
+            reader.readAsDataURL(bestand);
         });
+
+    // Wijzigingen opslaan
+    formulier.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        profiel.username =
+            document.getElementById("edit-username").value.trim();
+
+        profiel.first_name =
+            document.getElementById("edit-first_name").value.trim();
+
+        profiel.prefix =
+            document.getElementById("edit-prefix").value.trim();
+
+        profiel.last_name =
+            document.getElementById("edit-last_name").value.trim();
+
+        profiel.email =
+            document.getElementById("edit-email").value.trim();
+
+        profiel.phone =
+            document.getElementById("edit-phone").value.trim();
+
+        profiel.birthdate =
+            document.getElementById("edit-birthdate").value;
+
+        profiel.password_hint =
+            document.getElementById("edit-password_hint").value.trim();
+
+        if (nieuweFoto) {
+            profiel.profile_picture = nieuweFoto;
+        }
+
+        // Profielgegevens opslaan
+        localStorage.setItem(
+            "thuisinventaris-profiel",
+            JSON.stringify(profiel)
+        );
+
+        // Ook de gebruikersnaam bij de inloggegevens aanpassen
+        account.username = profiel.username;
+
+        localStorage.setItem(
+            "thuisinventaris-user",
+            JSON.stringify(account)
+        );
+
+        // Profiel opnieuw weergeven
+        document.getElementById("profiel-melding").hidden = true;
+
+        bewerkFormulier.hidden = true;
+        bewerkKnop.hidden = false;
+
+        nieuweFoto = null;
+        formulier.reset();
+
+        toonProfiel();
+
+        alert("Je profiel is bijgewerkt!");
+    });
+});
+
     </script>
 
 </body>
